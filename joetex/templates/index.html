@@ -306,16 +306,9 @@
                 <a href="{% url 'profile' reply.user.username %}" style="text-decoration: none; color: black;">
                     <h4 class="user_comments_username" style="color: black !important;">{{ reply.user.username }}</h4>
                 </a>
-                <h4 class="user_comments">{{ reply.content }}</h4>
-                <div class="reply_actions_div">
-                    <svg class="reply_heart {% if reply.is_liked %}liked{% endif %}" data-reply-id="{{ reply.id }}" data-liked="{{ reply.is_liked }}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="15" height="15">
-                        <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"></path>
-                    </svg>
-                </div>
-                
+                <h4 class="user_comments">{{ reply.content }}</h4> 
                 <div class="comment_details">
                     <p class="comment_post_time">{{ reply.time_since_creation }}</p>
-                    <p class="comment_like_counter" data-reply-id="{{ reply.id }}">{{ reply.like_count }} Likes</p> <!-- Displays the like count -->
                     <p class="more_options">&hellip;</p>
                 </div>
             </div>
@@ -570,10 +563,7 @@ document.addEventListener('DOMContentLoaded', function() {
             event.preventDefault(); // Prevent default form submission
 
             const postData = new FormData(form); // Gather form data
-            const submitButton = form.querySelector('button[type="submit"]');
-            submitButton.disabled = true; // Disable button
-            submitButton.textContent = 'Submitting...'; // Change button text
-
+            
             // Send the POST request via fetch
             fetch(form.action, {
                 method: 'POST',
@@ -591,14 +581,8 @@ document.addEventListener('DOMContentLoaded', function() {
                             <img src="${data.profile_picture}" alt="user" class="user_comment_profile">
                             <h4 class="user_comments_username">${data.username}</h4>
                             <h4 class="user_comments">${data.reply_content}</h4>
-                            <div class="comment_like">
-                                <svg class="heart" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="15" height="15">
-                                    <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
-                                </svg>
-                            </div>
                             <div class="comment_details">
                                 <p class="comment_post_time">Just now</p> <!-- Update as necessary -->
-                                <p class="comment_like_counter">0 Likes</p>
                                 <p class="more_options">&hellip;</p>
                             </div>
                         </div>
@@ -614,10 +598,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             })
             .catch(error => console.error('Error:', error))
-            .finally(() => {
-                submitButton.disabled = false; // Re-enable button
-                submitButton.textContent = 'Reply'; // Reset button text
-            });
         });
     });
 });
