@@ -54,6 +54,9 @@
     <h1>New Post</h1>
 
     <form method="POST" enctype="multipart/form-data">
+      <p class="error">Please note that videos choosen must have a minimum pixel resolution of at least "1080 x 1080" pixels, or else the video won't post</p>
+      <p class="error">This is to ensure all images/Videos posted are of the highest quality.Thanks for understanding</p>
+    
         {% csrf_token %}
     
         {% if form.image.errors %}
